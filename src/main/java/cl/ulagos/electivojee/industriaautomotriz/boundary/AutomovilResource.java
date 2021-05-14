@@ -1,20 +1,21 @@
 package cl.ulagos.electivojee.industriaautomotriz.boundary;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.stream.JsonCollectors;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,8 +23,6 @@ import javax.ws.rs.core.UriInfo;
 
 import cl.ulagos.electivojee.industriaautomotriz.entity.Automovil;
 import cl.ulagos.electivojee.industriaautomotriz.entity.Especificacion;
-import cl.ulagos.electivojee.industriaautomotriz.entity.TipoMotor;
-
 
 @Path("automoviles")
 public class AutomovilResource {
@@ -35,24 +34,16 @@ public class AutomovilResource {
 	@Context
 	UriInfo uriInfo;
 	
-//	@GET
-//	public JsonArray obtenerAutomoviles(@NotNull @QueryParam("filter") TipoMotor tipoMotor){
-//
-//		return manufacturaAutomovil.obtenerAutomoviles(tipoMotor)
-//				.stream()
-//				.map(c->Json.createObjectBuilder()
-//						.add("color", c.getColor().name())
-//						.add("motor", c.getTipoMotor().name())
-//						.add("id", c.getIdentificador())
-//						.add("test", "valor")
-//						.build())
-//				.collect(JsonCollectors.toJsonArray());
-//
-//	}
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Automovil> obtenerAutomoviles(){
+
+		return manufacturaAutomovil.obtenerAutomoviles();
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response crearAutomovil(@Valid @NotNull Especificacion especificacion) {
+	public Response crearAutomovil(@Valid @NotNull Especificacion especificacion) throws SecurityException, IllegalStateException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 
 		Automovil automovil = manufacturaAutomovil.manufacturaAutomovil(especificacion);
 		
@@ -64,13 +55,5 @@ public class AutomovilResource {
 		return Response.created(uri).build();	
 	}
 	
-//	@GET
-//	@Path("{id}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Automovil obtenerAutomovil(@PathParam("id") String identificador) {
-//		
-//		return manufacturaAutomovil.obtenerAutomovil(identificador);
-//		
-//	}
 }
 
