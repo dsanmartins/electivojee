@@ -16,6 +16,7 @@ cl/ulagos/electivojee/industriaautomotriz/entity/AutomovilCreado.class
 cl/ulagos/electivojee/industriaautomotriz/entity/Mecanico.class
 cl/ulagos/electivojee/industriaautomotriz/entity/AmigableConMedioAmbienteValidador.class
 cl/ulagos/electivojee/industriaautomotriz/entity/Automovil.class
+cl/ulagos/electivojee/industriaautomotriz/boundary/ListaAutomovilesBackingBean.class
 cl/ulagos/electivojee/industriaautomotriz/entity/CinturonSeguridad.class
 cl/ulagos/electivojee/industriaautomotriz/entity/Mecanico_.class
 cl/ulagos/electivojee/JAXRSConfiguration.class
